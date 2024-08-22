@@ -1,5 +1,8 @@
 package example.com.plugins
 
+
+import example.com.dto.LivroRequest
+import example.com.dto.StatusRequest
 import example.com.dto.UserRequest
 import example.com.dto.toUserResponse
 import example.com.model.Livro
@@ -203,14 +206,37 @@ fun Application.configureRouting() {
         // saveAllLivros
         post("/livros/batch") {
             try {
-                val livrosRequest = call.receive<List<Livro>>()
-                livroRepository.saveAllLivros(livrosRequest)
+//                val livrosRequest = call.receive<List<Livro>>()
+//                livroRepository.saveAllLivros(livrosRequest)
+
+                val livroRequest = call.receive<List<LivroRequest>>()
+                val livros = livroRequest.map { it.toLivro() }
+                livroRepository.saveAllLivros(livros)
+
+//                val statusRequest = call.receive<StatusRequest>()
+//                val status = statusRequest.toStatus()
+//                statusRepository.save(status)
                 call.respondText("Livros gravados com sucesso", status = HttpStatusCode.Created)
             } catch (e: Exception) {
                 call.respondText("Erro ao gravar livros: $e", status = HttpStatusCode.BadRequest)
             }
         }
+
+        delete("/livros") {
+            try {
+
+                if (livroRepository.deleteAllLivros()) {
+                    call.respondText("Livro deletado com sucesso", status = HttpStatusCode.OK)
+                } else {
+                    call.respondText("Erro ao deletar livro", status = HttpStatusCode.BadRequest)
+                }
+            } catch (e: Exception) {
+                call.respondText("Erro ao deletar livro: $e", status = HttpStatusCode.BadRequest)
+            }
+        }
+
     }
+
 
     // status
     routing {
@@ -227,11 +253,16 @@ fun Application.configureRouting() {
             }
         }
 
+
+
         // save user
         post("/status") {
             try {
-                val statusRequest = call.receive<Status>()
-                val status = statusRepository.save(statusRequest)
+                val statusRequest = call.receive<StatusRequest>()
+                val status = statusRequest.toStatus()
+                statusRepository.save(status)
+//                val statusRequest = call.receive<Status>()
+//                val status = statusRepository.save(statusRequest)
                 call.respondText("Status gravado com sucesso", status = HttpStatusCode.Created)
             } catch (e: Exception) {
                 call.respondText("Erro ao gravar status: $e", status = HttpStatusCode.BadRequest)

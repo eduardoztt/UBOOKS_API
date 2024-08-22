@@ -17,5 +17,7 @@ class LivroRepository(
 
     suspend fun deleteLivro(idLivro: Int): Boolean = dao.delete(idLivro)
 
+    suspend fun deleteAllLivros() = dao.deleteAll()
+
     suspend fun saveAllLivros(livros: List<Livro>) = dao.saveAll(livros)
 }

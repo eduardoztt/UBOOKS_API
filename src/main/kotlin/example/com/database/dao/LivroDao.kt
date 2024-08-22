@@ -77,6 +77,10 @@ class LivroDao {
         Livros.deleteWhere { Livros.id eq idLivro } > 0
     }
 
+    suspend fun deleteAll(): Boolean = dbQuery {
+        Livros.deleteAll() > 0
+    }
+
     suspend fun saveAll(livros: List<Livro>) = dbQuery {
         Livros.batchInsert(livros) { livro ->
             this[Livros.ano] = livro.ano
