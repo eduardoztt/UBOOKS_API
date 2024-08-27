@@ -12,9 +12,9 @@ data class StatusLivroRequest(
     val paginaslidas: Int
 ) {
     fun toStatusLivro() = StatusLivro(
+        idStatusLivro = idStatusLivro,
         idLivro = idLivro,
         idStatus = idStatus,
-        idStatusLivro = idStatusLivro,
         email = email,
         paginaslidas = paginaslidas
     )

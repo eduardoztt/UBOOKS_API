@@ -21,21 +21,32 @@ class StatusLivroDao {
         }
     }
 
-    suspend fun findByEmailAndStatus(email: String, status: Int): List<LivroResponse> = dbQuery {
+    suspend fun findByEmailAndStatus(email: String, idLivro: Int): StatusLivroResponse? = dbQuery {
         (StatusLivros innerJoin Livros innerJoin Users innerJoin Statuses)
-            .selectAll().where { (StatusLivros.email eq email) and (StatusLivros.idStatus eq status) }
-            .map {
-                Livro(
-                    id = it[Livros.id],
-                    ano = it[Livros.ano],
-                    autor = it[Livros.autor],
-                    descricao = it[Livros.descricao],
-                    genero = it[Livros.genero],
-                    imagem = it[Livros.imagem],
-                    paginas = it[Livros.paginas],
-                    titulo = it[Livros.titulo]
-                ).toLivroResponse()
-            }
+        StatusLivros.selectAll().where { (StatusLivros.email eq email) and (StatusLivros.idLivro eq idLivro) }
+            .map{
+                StatusLivro(
+                    idStatusLivro = it[StatusLivros.idStatusLivro],
+                    idLivro = it[StatusLivros.idLivro],
+                    idStatus = it[StatusLivros.idStatus],
+                    email = it[StatusLivros.email],
+                    paginaslidas = it[StatusLivros.paginaslidas]
+                ).toStatusLivroResponse()
+            }.firstOrNull()
+
+//            .map {
+//                Livro(
+//                    id = it[Livros.id],
+//                    ano = it[Livros.ano],
+//                    autor = it[Livros.autor],
+//                    descricao = it[Livros.descricao],
+//                    genero = it[Livros.genero],
+//                    imagem = it[Livros.imagem],
+//                    paginas = it[Livros.paginas],
+//                    titulo = it[Livros.titulo]
+//                ).toLivroResponse()
+//            }
+
     }
 
     suspend fun findByEmail(email: String): List<LivroResponse> = dbQuery {
@@ -43,7 +54,7 @@ class StatusLivroDao {
             .selectAll().where { StatusLivros.email eq email }
             .map {
                 Livro(
-                    id = it[Livros.id],
+                    idLivros = it[Livros.idLivro],
                     ano = it[Livros.ano],
                     autor = it[Livros.autor],
                     descricao = it[Livros.descricao],

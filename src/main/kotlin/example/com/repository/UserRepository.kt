@@ -8,6 +8,9 @@ class UserRepository(
 ) {
     suspend fun getUserEmail(email: String): User? = dao.getUserEmail(email)
 
+    suspend fun getAll() = dao.findAll()
+
+
     suspend fun delete(email: String): Boolean {
         return dao.delete(email)
     }
@@ -19,6 +22,8 @@ class UserRepository(
     suspend fun updatePassword(email: String, newPassword: String): Boolean {
         return dao.updatePassword(email, newPassword)
     }
+
+    suspend fun getUserByEmailAndPassword(email: String, password: String) = dao.findByEmailAndPassword(email, password)
 
     suspend fun save(user: User) = dao.save(user)
 }

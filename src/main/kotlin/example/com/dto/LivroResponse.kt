@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class LivroResponse(
-    val id: Int,
+    val idLivro: Int,
     val ano: Int,
     val autor: String,
     val descricao: String,
@@ -17,7 +17,7 @@ data class LivroResponse(
 )
 
 fun Livro.toLivroResponse() = LivroResponse(
-    id = id,
+    idLivro = idLivros,
     ano = ano,
     autor = autor,
     descricao = descricao,

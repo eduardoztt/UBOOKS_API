@@ -10,7 +10,7 @@ class LivroDao {
     suspend fun findAll(): List<LivroResponse> = dbQuery {
         Livros.selectAll().map {
             Livro(
-                id = it[Livros.id],
+                idLivros = it[Livros.idLivro],
                 ano = it[Livros.ano],
                 autor = it[Livros.autor],
                 descricao = it[Livros.descricao],
@@ -23,9 +23,9 @@ class LivroDao {
     }
 
     suspend fun findById(idLivro: Int): LivroResponse? = dbQuery {
-        Livros.selectAll().where { Livros.id eq idLivro }.map {
+        Livros.selectAll().where { Livros.idLivro eq idLivro }.map {
             Livro(
-                id = it[Livros.id],
+                idLivros = it[Livros.idLivro],
                 ano = it[Livros.ano],
                 autor = it[Livros.autor],
                 descricao = it[Livros.descricao],
@@ -49,7 +49,7 @@ class LivroDao {
         }
         insertStatement.resultedValues?.singleOrNull()?.let {
             Livro(
-                id = it[Livros.id],
+                idLivros = it[Livros.idLivro],
                 ano = it[Livros.ano],
                 autor = it[Livros.autor],
                 descricao = it[Livros.descricao],
@@ -62,7 +62,7 @@ class LivroDao {
     }
 
     suspend fun update(livro: Livro): Boolean = dbQuery {
-        Livros.update({ Livros.id eq livro.id }) {
+        Livros.update({ Livros.idLivro eq livro.idLivros }) {
             it[ano] = livro.ano
             it[autor] = livro.autor
             it[descricao] = livro.descricao
@@ -74,7 +74,7 @@ class LivroDao {
     }
 
     suspend fun delete(idLivro: Int): Boolean = dbQuery {
-        Livros.deleteWhere { Livros.id eq idLivro } > 0
+        Livros.deleteWhere { Livros.idLivro eq idLivro } > 0
     }
 
     suspend fun deleteAll(): Boolean = dbQuery {

@@ -9,4 +9,6 @@ class StatusRepository(
     suspend fun getAll() = dao.findAll()
 
     suspend fun save(status: Status) = dao.save(status)
+
+    suspend fun  deleteStatus() = dao.deleteAll()
 }

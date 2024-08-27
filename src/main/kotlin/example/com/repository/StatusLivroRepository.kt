@@ -10,7 +10,8 @@ class StatusLivroRepository(
 
     suspend fun getByEmail(email: String) = dao.findByEmail(email)
 
-    suspend fun getByEmailAndStatus(email: String, status: Int) = dao.findByEmailAndStatus(email, status)
+
+    suspend fun getByEmailAndStatus(email: String, idStatus: Int) = dao.findByEmailAndStatus(email, idStatus)
 
     suspend fun save(statusLivro: StatusLivro) = dao.save(statusLivro)
 

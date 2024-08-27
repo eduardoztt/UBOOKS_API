@@ -2,8 +2,10 @@ package example.com.database.dao
 
 import example.com.dto.StatusResponse
 import example.com.dto.toResponse
+import example.com.model.Livros
 import example.com.model.Status
 import example.com.model.Statuses
+import org.jetbrains.exposed.sql.deleteAll
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.selectAll
 
@@ -22,6 +24,11 @@ class StatusDao {
                 )
             }
         }
+
+    suspend fun deleteAll(): Boolean = dbQuery {
+        Statuses.deleteAll() > 0
+    }
+
 
     suspend fun findAll(): List<StatusResponse> = dbQuery {
         Statuses.selectAll().map {

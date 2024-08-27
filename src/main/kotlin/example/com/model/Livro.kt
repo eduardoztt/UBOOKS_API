@@ -4,7 +4,7 @@ import example.com.dto.LivroResponse
 import org.jetbrains.exposed.sql.Table
 
 data class Livro(
-    val id: Int,
+    val idLivros: Int,
     val ano: Int,
     val autor: String,
     val descricao: String,
@@ -14,7 +14,7 @@ data class Livro(
     val titulo: String
 ) {
     fun toLivroResponse() = LivroResponse(
-        id = id,
+        idLivro = idLivros,
         ano = ano,
         autor = autor,
         descricao = descricao,
@@ -26,7 +26,7 @@ data class Livro(
 }
 
 object Livros : Table() {
-    val id = integer("id").autoIncrement()
+    val idLivro = integer("idLivro").autoIncrement()
     val ano = integer("ano")
     val autor = text("autor")
     val descricao = text("descricao")
@@ -35,5 +35,5 @@ object Livros : Table() {
     val paginas = integer("paginas")
     val titulo = text("titulo")
 
-    override val primaryKey = PrimaryKey(id)
+    override val primaryKey = PrimaryKey(idLivro)
 }

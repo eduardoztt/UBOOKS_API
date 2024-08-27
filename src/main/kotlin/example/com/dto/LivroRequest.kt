@@ -15,7 +15,7 @@ data class LivroRequest(
     val titulo: String
 ) {
     fun toLivro() = Livro(
-        id = 0,
+        idLivros = 0,
         ano = ano,
         autor = autor,
         descricao = descricao,

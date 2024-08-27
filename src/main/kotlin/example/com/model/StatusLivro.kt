@@ -13,9 +13,9 @@ data class StatusLivro(
 
 object StatusLivros : Table() {
     val idStatusLivro = integer("idStatusLivro").autoIncrement()
-    val idLivro = integer("idLivro")
-    val idStatus = integer("idStatus")
-    val email = text("email")
+    val idLivro = integer("idLivro").references(Livros.idLivro)
+    val idStatus = integer("idStatus").references(Statuses.idStatus)
+    val email = text("email").references(Users.email)
     val paginaslidas = integer("paginaslidas")
 
     override val primaryKey = PrimaryKey(idStatusLivro)
