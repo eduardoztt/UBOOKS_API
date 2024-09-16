@@ -8,10 +8,12 @@ data class UserResponse(
     val name: String,
     val email: String,
     val password: String,
+    val img: String,
 )
 
 fun User.toUserResponse() = UserResponse(
     name = name,
     email = email,
     password = password,
+    img = img,
 )

@@ -16,6 +16,7 @@ class UserDao {
                 name = it[Users.name],
                 email = it[Users.email],
                 password = it[Users.password],
+                img = it[Users.img],
 
             )
         }
@@ -28,6 +29,7 @@ class UserDao {
                     name = it[Users.name],
                     email = it[Users.email],
                     password = it[Users.password],
+                    img = it[Users.img],
                 )
             }.firstOrNull()
     }
@@ -40,6 +42,7 @@ class UserDao {
                         name = it[Users.name],
                         email = it[Users.email],
                         password = it[Users.password],
+                        img = it[Users.img],
 
                     )
                 }.first()
@@ -60,6 +63,14 @@ class UserDao {
         }
     }
 
+    suspend fun updateImg(email: String, newImg: String): Boolean {
+        return dbQuery {
+            Users.update({ Users.email eq email }) {
+                it[Users.img] = newImg
+            } > 0
+        }
+    }
+
     suspend fun updatePassword(email: String, newPassword: String): Boolean {
         return dbQuery {
             Users.update({ Users.email eq email }) {
@@ -74,6 +85,7 @@ class UserDao {
                 it[name] = user.name
                 it[password] = user.password
                 it[email] = user.email
+                it[img] = user.img
             }
             // Return the user that was inserted
             insertStatement.resultedValues?.singleOrNull()?.let {
@@ -81,6 +93,7 @@ class UserDao {
                     name = it[Users.name],
                     email = it[Users.email],
                     password = it[Users.password],
+                    img = it[Users.img],
                 )
             }
         }

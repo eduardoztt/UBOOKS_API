@@ -15,6 +15,8 @@ class LivroRepository(
 
     suspend fun updateLivro(livro: Livro): Boolean = dao.update(livro)
 
+//    suspend fun getLivroByIdAndIdStatus(email: String,idStatus: Int): List<LivroResponse> = dao.
+
     suspend fun deleteLivro(idLivro: Int): Boolean = dao.delete(idLivro)
 
     suspend fun deleteAllLivros() = dao.deleteAll()

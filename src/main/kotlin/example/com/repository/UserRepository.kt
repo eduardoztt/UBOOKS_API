@@ -19,6 +19,10 @@ class UserRepository(
         return dao.updateEmail(email, newName)
     }
 
+    suspend fun updateImg(email: String, newImg: String): Boolean {
+        return dao.updateImg(email, newImg)
+    }
+
     suspend fun updatePassword(email: String, newPassword: String): Boolean {
         return dao.updatePassword(email, newPassword)
     }

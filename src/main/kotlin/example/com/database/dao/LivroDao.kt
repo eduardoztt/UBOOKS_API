@@ -22,6 +22,23 @@ class LivroDao {
         }
     }
 
+
+//    suspend fun getLivroByIdAndIdStatus(): List<LivroResponse> = dbQuery {
+//        Livros.selectAll() where {Livros. eq email and }
+//            .map {
+//            Livro(
+//                idLivros = it[Livros.idLivro],
+//                ano = it[Livros.ano],
+//                autor = it[Livros.autor],
+//                descricao = it[Livros.descricao],
+//                genero = it[Livros.genero],
+//                imagem = it[Livros.imagem],
+//                paginas = it[Livros.paginas],
+//                titulo = it[Livros.titulo]
+//            ).toLivroResponse()
+//        }
+//    }
+
     suspend fun findById(idLivro: Int): LivroResponse? = dbQuery {
         Livros.selectAll().where { Livros.idLivro eq idLivro }.map {
             Livro(
